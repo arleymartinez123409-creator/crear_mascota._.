@@ -22,6 +22,17 @@
         .oculto { display: none !important; }
         h1 { text-align: center; color: #7b4173; margin-bottom: 10px; }
         h2 { text-align: center; color: #5b5b9e; margin-bottom: 25px; }
+        .historia {
+            background: linear-gradient(135deg, #fef3ff, #f0f7ff);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #b388eb;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #444;
+            margin: 30px 0;
+            text-align: center;
+        }
         .pregunta {
             font-size: 22px;
             font-weight: bold;
@@ -68,6 +79,7 @@
             font-size: 17px;
             text-align: center;
             font-weight: bold;
+            line-height: 1.5;
         }
         .retro-correcto {
             background: #f0fdf4;
@@ -127,17 +139,11 @@
             font-weight: bold;
             color: #555;
         }
-        .puntuacion {
-            text-align: center;
-            font-size: 24px;
-            margin: 20px 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #f3efff, #fff0f5);
-            border-radius: 15px;
-        }
         .progreso {
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
             color: #888;
             margin-bottom: 20px;
             font-size: 16px;
@@ -151,23 +157,47 @@
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
+        .entrada-nombre {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            font-size: 20px;
+            border: 3px solid #dda0dd;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px auto;
+            display: block;
+        }
+        .nombre-mascota {
+            font-size: 28px;
+            font-weight: bold;
+            color: #7b4173;
+            text-align: center;
+            margin: 15px 0;
+        }
     </style>
 </head>
 <body>
 
 <div class="contenedor" id="pantalla-inicio">
-    <h1>🐉 Líder Dragón</h1>
-    <h2>Educación Rural en Acción</h2>
-    <p style="text-align:center; font-size:18px; color:#666; margin:30px 0;">
-        Responde bien las preguntas y personaliza tu dragón mágico. ¡Adelante! ✨
-    </p>
-    <button class="boton" onclick="iniciarJuego()">🎮 Comenzar</button>
+    <h1>🐉 El Dragón de la Escuela Rural</h1>
+    
+    <div class="historia">
+        <p>En lo alto de las montañas, donde el aire es fresco y los caminos suben entre verdes praderas, existe una escuela muy especial. 🏔️</p>
+        <br>
+        <p>Allí, un pequeño dragón mágico espera despertar… pero solo lo hará si tú demuestras que conoces cómo cuidar y guiar la educación del campo. ✨</p>
+        <br>
+        <p>Con cada respuesta correcta, la magia crece y tú eliges cómo será tu compañero. ¿Estás listo para la aventura? 🗺️</p>
+    </div>
+    
+    <button class="boton" onclick="iniciarJuego()">🚀 Comenzar la aventura</button>
 </div>
 
 <div class="contenedor oculto" id="pantalla-pregunta">
     <div class="progreso">
         <span id="texto-progreso"></span>
-        <span id="puntos-ahora">Puntos: 0</span>
+        <span id="puntos-buenas">✅ Buenas: 0</span>
+        <span id="puntos-malas">❌ Malas: 0</span>
     </div>
     <div class="pregunta" id="texto-pregunta"></div>
     <div id="contenedor-opciones"></div>
@@ -175,17 +205,9 @@
     <button id="boton-siguiente" class="boton oculto" onclick="siguientePregunta()">Siguiente ➡️</button>
 </div>
 
-<div class="contenedor oculto" id="pantalla-resultado">
-    <h1>🎉 ¡Felicidades!</h1>
-    <div class="puntuacion" id="puntuacion-final"></div>
-    <p style="text-align:center; font-size:18px; color:#555; margin:15px 0;">
-        ¡Excelente trabajo! Ahora personaliza tu dragón mágico 👇
-    </p>
-    <button class="boton" onclick="irElegirDragon()">✨ Escoger mi dragón</button>
-</div>
-
 <div class="contenedor oculto" id="pantalla-elegir-dragon">
-    <h2>🐉 Escoge tu dragón</h2>
+    <h2>🔥 ¡La magia despierta!</h2>
+    <p style="text-align:center; font-size:18px; color:#555; margin-bottom:30px;">Tu primera luz brilla. ¿Qué tipo de dragón será tu compañero? 🐉</p>
     <div class="fila-eleccion">
         <div class="tarjeta-eleccion" onclick="elegirDragon('fuego')">
             <img src="dragon de fuego oriquinal.png" alt="Dragón de Fuego" onerror="this.src='https://via.placeholder.com/200?text=Dragón+de+Fuego'">
@@ -199,13 +221,14 @@
 </div>
 
 <div class="contenedor oculto" id="pantalla-elegir-color">
-    <h2 id="titulo-color">Elige el color</h2>
+    <h2>🎨 ¡Cada vez más cerca!</h2>
+    <p style="text-align:center; font-size:18px; color:#555; margin-bottom:30px;">La magia toma color. ¿Cuál será su tono favorito? ✨</p>
     <div class="fila-eleccion">
-        <div class="tarjeta-eleccion" onclick="elegirColor('rosa')" id="tarjeta-rosa">
+        <div class="tarjeta-eleccion" onclick="elegirColor('rosa')">
             <img id="img-rosa" src="" alt="Dragón Rosa" onerror="this.src='https://via.placeholder.com/200?text=Rosa'">
             <div class="etiqueta">🩷 Rosa</div>
         </div>
-        <div class="tarjeta-eleccion" onclick="elegirColor('azul')" id="tarjeta-azul">
+        <div class="tarjeta-eleccion" onclick="elegirColor('azul')">
             <img id="img-azul" src="" alt="Dragón Azul" onerror="this.src='https://via.placeholder.com/200?text=Azul'">
             <div class="etiqueta">🔵 Azul</div>
         </div>
@@ -213,7 +236,8 @@
 </div>
 
 <div class="contenedor oculto" id="pantalla-elegir-accesorio">
-    <h2 id="titulo-accesorio">Elige tu accesorio mágico</h2>
+    <h2>👑 ¡El toque final!</h2>
+    <p style="text-align:center; font-size:18px; color:#555; margin-bottom:30px;">Tu dragón casi está completo. ¿Qué lo hará único? 🌟</p>
     <div class="fila-eleccion">
         <div class="tarjeta-eleccion" onclick="elegirAccesorio('corona')">
             <img id="img-corona" src="" alt="Corona" onerror="this.src='https://via.placeholder.com/200?text=👑+Corona'">
@@ -230,31 +254,99 @@
     </div>
 </div>
 
+<div class="contenedor oculto" id="pantalla-poner-nombre">
+    <h2>📝 ¡Un nombre especial!</h2>
+    <p style="text-align:center; font-size:18px; color:#555; margin:20px 0;">La magia necesita un nombre para ser completa. ¿Cómo se llamará tu compañero? 💫</p>
+    <input type="text" id="nombre-mascota" class="entrada-nombre" placeholder="Escribe el nombre aquí..." maxlength="20">
+    <button class="boton" onclick="confirmarNombre()">✅ Darle su nombre</button>
+</div>
+
 <div class="contenedor oculto" id="pantalla-final">
-    <h1>✨ ¡Tu dragón está listo! ✨</h1>
+    <h1>✨ ¡La magia está completa! ✨</h1>
+    <div class="nombre-mascota" id="mostrar-nombre"></div>
     <div class="dragon-final">
         <img id="imagen-final" src="" alt="Tu dragón mágico">
     </div>
-    <p style="text-align:center; font-size:20px; color:#555; font-weight:bold; margin:15px 0;" id="mensaje-final"></p>
-    <p style="text-align:center; font-size:18px; color:#7b4173; font-weight:bold;" id="mensaje-puntos"></p>
-    <button class="boton" onclick="reiniciar()">🔄 Jugar de nuevo</button>
+    <p style="text-align:center; font-size:20px; color:#555; font-weight:bold; margin:15px 0;" id="mensaje-detalle"></p>
+    <p style="text-align:center; font-size:22px; color:#7b4173; font-weight:bold; margin:20px 0; padding:15px; background:#f3efff; border-radius:12px;" id="puntaje-final"></p>
+    <button class="boton" onclick="reiniciar()">🔄 Vivir la aventura otra vez</button>
 </div>
 
 <script>
 // ==============================================
-// PREGUNTAS
+// PREGUNTAS + EXPLICACIONES
 // ==============================================
 const preguntas = [
-    { numero: 1, texto: "El director rural es:", opciones: { A: "Solo administrador", B: "Directivo docente que lidera en zona rural", C: "Solo docente" }, correcta: "B" },
-    { numero: 2, texto: "Su función central es:", opciones: { A: "Articular gestión pedagógica, comunitaria y más", B: "Solo firmar papeles", C: "Solo buscar recursos" }, correcta: "A" },
-    { numero: 3, texto: "¿Qué caracteriza el contexto rural?", opciones: { A: "Aulas multigrado y dispersión", B: "Todo cerca y conectado igual que la ciudad", C: "No hay diferencias" }, correcta: "A" },
-    { numero: 4, texto: "Como líder pedagógico debe:", opciones: { A: "Solo administrar", B: "Acompañar docentes y relacionar con el territorio", C: "No intervenir en las clases" }, correcta: "B" },
-    { numero: 5, texto: "La gestión comunitaria vincula:", opciones: { A: "Solo a los directivos", B: "Solo a los estudiantes", C: "Escuela, familias y territorio" }, correcta: "C" },
-    { numero: 6, texto: "¿Quién participa en la dirección?", opciones: { A: "Toda la comunidad educativa", B: "Nadie", C: "Solo el director" }, correcta: "A" },
-    { numero: 7, texto: "Un proyecto comunitario puede ser:", opciones: { A: "Ninguno", B: "Huerta escolar", C: "Exclusivamente tareas" }, correcta: "B" },
-    { numero: 8, texto: "La educación rural debe:", opciones: { A: "Copiar la ciudad", B: "Ignorar el territorio", C: "Adaptarse al contexto" }, correcta: "C" },
-    { numero: 9, texto: "Uno de los 5 desafíos es:", opciones: { A: "No hay desafíos", B: "Solo dinero", C: "Ética y sostenibilidad" }, correcta: "C" },
-    { numero: 10, texto: "El director rural lidera:", opciones: { A: "Una escuela inserta en su comunidad", B: "Una institución aislada", C: "Solo un grupo de estudiantes" }, correcta: "A" }
+    { 
+        numero: 1, 
+        texto: "El director rural es:", 
+        opciones: { A: "Solo administrador", B: "Directivo docente que lidera en zona rural", C: "Solo docente" }, 
+        correcta: "B",
+        explicacion: "Porque en las escuelas rurales el director no solo firma papeles, sino que también enseña y guía a la comunidad."
+    },
+    { 
+        numero: 2, 
+        texto: "Su función central es:", 
+        opciones: { A: "Articular gestión pedagógica, comunitaria y más", B: "Solo firmar papeles", C: "Solo buscar recursos" }, 
+        correcta: "A",
+        explicacion: "Porque su trabajo no es solo administrativo: debe cuidar la enseñanza, unir a las familias y gestionar recursos."
+    },
+    { 
+        numero: 3, 
+        texto: "¿Qué caracteriza el contexto rural?", 
+        opciones: { A: "Aulas multigrado y dispersión", B: "Todo cerca y conectado igual que la ciudad", C: "No hay diferencias" }, 
+        correcta: "A",
+        explicacion: "Porque en el campo hay escuelas pequeñas donde varios grados estudian juntos y las viviendas están lejos unas de otras."
+    },
+    { 
+        numero: 4, 
+        texto: "Como líder pedagógico debe:", 
+        opciones: { A: "Solo administrar", B: "Acompañar docentes y relacionar con el territorio", C: "No intervenir en las clases" }, 
+        correcta: "B",
+        explicacion: "Porque la educación debe conectar con la vida del campo: la huerta, la familia, las tradiciones del lugar."
+    },
+    { 
+        numero: 5, 
+        texto: "La gestión comunitaria vincula:", 
+        opciones: { A: "Solo a los directivos", B: "Solo a los estudiantes", C: "Escuela, familias y territorio" }, 
+        correcta: "C",
+        explicacion: "Porque la escuela no está sola: funciona mejor cuando todos participan — padres, vecinos y estudiantes."
+    },
+    { 
+        numero: 6, 
+        texto: "¿Quién participa en la dirección?", 
+        opciones: { A: "Toda la comunidad educativa", B: "Nadie", C: "Solo el director" }, 
+        correcta: "A",
+        explicacion: "Porque la educación es tarea de todos: el director guía, pero todos aportan ideas y colaboran."
+    },
+    { 
+        numero: 7, 
+        texto: "Un proyecto comunitario puede ser:", 
+        opciones: { A: "Ninguno", B: "Huerta escolar", C: "Exclusivamente tareas" }, 
+        correcta: "B",
+        explicacion: "Porque la huerta une aprendizaje y vida: se aprende ciencias, matemáticas y se trabaja con la tierra."
+    },
+    { 
+        numero: 8, 
+        texto: "La educación rural debe:", 
+        opciones: { A: "Copiar la ciudad", B: "Ignorar el territorio", C: "Adaptarse al contexto" }, 
+        correcta: "C",
+        explicacion: "Porque cada zona rural tiene su propia cultura, su paisaje y sus necesidades — la educación debe respetar eso."
+    },
+    { 
+        numero: 9, 
+        texto: "Uno de los 5 desafíos es:", 
+        opciones: { A: "No hay desafíos", B: "Solo dinero", C: "Ética y sostenibilidad" }, 
+        correcta: "C",
+        explicacion: "Porque educar en el campo requiere valores: cuidar la tierra, ser honestos y pensar en el futuro."
+    },
+    { 
+        numero: 10, 
+        texto: "El director rural lidera:", 
+        opciones: { A: "Una escuela inserta en su comunidad", B: "Una institución aislada", C: "Solo un grupo de estudiantes" }, 
+        correcta: "A",
+        explicacion: "Porque la escuela del campo es el corazón del pueblo: lo que pasa en ella afecta a todos y viceversa."
+    }
 ];
 
 // ==============================================
@@ -290,10 +382,13 @@ const rutasImagenes = {
 // ==============================================
 let preguntaActual = 0;
 let aciertos = 0;
+let fallos = 0;
+let metaAlcanzada = { tipo: false, color: false, accesorio: false };
 let respondido = false;
 let dragonElegido = null;
 let colorElegido = null;
 let accesorioElegido = null;
+let nombreMascota = "";
 
 // ==============================================
 // FUNCIONES
@@ -310,10 +405,13 @@ function mostrarPantalla(id) {
 function iniciarJuego() {
     preguntaActual = 0;
     aciertos = 0;
+    fallos = 0;
+    metaAlcanzada = { tipo: false, color: false, accesorio: false };
     respondido = false;
     dragonElegido = null;
     colorElegido = null;
     accesorioElegido = null;
+    nombreMascota = "";
     mostrarPantalla('pantalla-pregunta');
     mostrarPregunta();
 }
@@ -322,7 +420,8 @@ function mostrarPregunta() {
     respondido = false;
     const p = preguntas[preguntaActual];
     document.getElementById('texto-progreso').textContent = `Pregunta ${p.numero} de ${preguntas.length}`;
-    document.getElementById('puntos-ahora').textContent = `Puntos: ${aciertos}`;
+    document.getElementById('puntos-buenas').textContent = `✅ Buenas: ${aciertos}`;
+    document.getElementById('puntos-malas').textContent = `❌ Malas: ${fallos}`;
     document.getElementById('texto-pregunta').textContent = p.texto;
     
     const contenedor = document.getElementById('contenedor-opciones');
@@ -332,7 +431,7 @@ function mostrarPregunta() {
         const btn = document.createElement('button');
         btn.className = 'opcion';
         btn.innerHTML = `<strong>${letra}.</strong> ${p.opciones[letra]}`;
-        btn.onclick = () => responder(letra, p.correcta, btn);
+        btn.onclick = () => responder(letra, p.correcta, p.explicacion, btn);
         contenedor.appendChild(btn);
     }
     
@@ -340,7 +439,7 @@ function mostrarPregunta() {
     document.getElementById('boton-siguiente').classList.add('oculto');
 }
 
-function responder(letra, correcta, boton) {
+function responder(letra, correcta, explicacion, boton) {
     if (respondido) return;
     respondido = true;
     
@@ -353,79 +452,118 @@ function responder(letra, correcta, boton) {
     if (letra === correcta) {
         aciertos++;
         boton.classList.add('correcta');
-        retro.textContent = "✅ ¡Correcto! Muy bien hecho.";
+        retro.innerHTML = `✅ ¡Correcto! ${explicacion}`;
         retro.classList.add('retro-correcto');
     } else {
+        fallos++;
         boton.classList.add('incorrecta');
         opciones.forEach(op => {
             if (op.innerHTML.startsWith(`<strong>${correcta}.</strong>`)) {
                 op.classList.add('correcta');
             }
         });
-        retro.textContent = `❌ Casi. La respuesta correcta es la ${correcta}. ¡Tú puedes!`;
+        retro.innerHTML = `❌ No es esa. La respuesta correcta es la ${correcta}.<br>📌 ${explicacion}`;
         retro.classList.add('retro-incorrecto');
     }
     
-    document.getElementById('puntos-ahora').textContent = `Puntos: ${aciertos}`;
+    document.getElementById('puntos-buenas').textContent = `✅ Buenas: ${aciertos}`;
+    document.getElementById('puntos-malas').textContent = `❌ Malas: ${fallos}`;
     document.getElementById('boton-siguiente').classList.remove('oculto');
 }
 
 function siguientePregunta() {
+    // ETAPA 1: 3 aciertos → elegir tipo de dragón
+    if (aciertos >= 3 && !metaAlcanzada.tipo) {
+        metaAlcanzada.tipo = true;
+        mostrarPantalla('pantalla-elegir-dragon');
+        return;
+    }
+    
+    // ETAPA 2: 6 aciertos → elegir color
+    if (aciertos >= 6 && !metaAlcanzada.color) {
+        metaAlcanzada.color = true;
+        document.getElementById('img-rosa').src = rutasImagenes[dragonElegido].rosa;
+        document.getElementById('img-azul').src = rutasImagenes[dragonElegido].azul;
+        mostrarPantalla('pantalla-elegir-color');
+        return;
+    }
+    
+    // ETAPA 3: 9 aciertos → elegir accesorio
+    if (aciertos >= 9 && !metaAlcanzada.accesorio) {
+        metaAlcanzada.accesorio = true;
+        const r = rutasImagenes[dragonElegido];
+        document.getElementById('img-corona').src = r[colorElegido + 'Corona'];
+        document.getElementById('img-capa').src = r[colorElegido + 'Capa'];
+        document.getElementById('img-brillo').src = r[colorElegido + 'Brillo'];
+        mostrarPantalla('pantalla-elegir-accesorio');
+        return;
+    }
+    
+    // Siguiente pregunta o terminar
     preguntaActual++;
     if (preguntaActual < preguntas.length) {
         mostrarPregunta();
     } else {
-        const porcentaje = Math.round((aciertos / preguntas.length) * 100);
-        let mensaje = '';
-        if (porcentaje === 100) mensaje = "🌟 ¡Perfecto! Eres un experto en educación rural.";
-        else if (porcentaje >= 80) mensaje = "👏 ¡Excelente! Tienes muy buenos conocimientos.";
-        else if (porcentaje >= 60) mensaje = "👍 ¡Bien! Vas muy bien, sigue practicando.";
-        else mensaje = "💪 Adelante, repasa y lo harás mucho mejor.";
-        
-        document.getElementById('puntuacion-final').innerHTML = `
-            <div style="font-size:28px; font-weight:bold;">${aciertos} de ${preguntas.length}</div>
-            <div style="font-size:18px; margin:10px 0;">${porcentaje}% correctas</div>
-            <div style="font-size:16px; color:#666;">${mensaje}</div>
-        `;
-        mostrarPantalla('pantalla-resultado');
+        // ¡TERMINÓ LAS 10! → Pedir nombre
+        mostrarPantalla('pantalla-poner-nombre');
+        document.getElementById('nombre-mascota').value = "";
     }
-}
-
-function irElegirDragon() {
-    mostrarPantalla('pantalla-elegir-dragon');
 }
 
 function elegirDragon(tipo) {
     dragonElegido = tipo;
-    document.getElementById('img-rosa').src = rutasImagenes[tipo].rosa;
-    document.getElementById('img-azul').src = rutasImagenes[tipo].azul;
-    document.getElementById('titulo-color').textContent = 
-        tipo === 'fuego' ? '🔥 Elige el color de tu dragón de fuego' : '❄️ Elige el color de tu dragón de hielo';
-    mostrarPantalla('pantalla-elegir-color');
+    mostrarPantalla('pantalla-pregunta');
+    if (preguntaActual < preguntas.length) mostrarPregunta();
 }
 
 function elegirColor(color) {
     colorElegido = color;
-    const r = rutasImagenes[dragonElegido];
-    document.getElementById('img-corona').src = r[color + 'Corona'];
-    document.getElementById('img-capa').src = r[color + 'Capa'];
-    document.getElementById('img-brillo').src = r[color + 'Brillo'];
-    mostrarPantalla('pantalla-elegir-accesorio');
+    mostrarPantalla('pantalla-pregunta');
+    if (preguntaActual < preguntas.length) mostrarPregunta();
 }
 
 function elegirAccesorio(acc) {
     accesorioElegido = acc;
-    const ruta = rutasImagenes[dragonElegido][colorElegido + acc.charAt(0).toUpperCase() + acc.slice(1)];
-    document.getElementById('imagen-final').src = ruta;
+    mostrarPantalla('pantalla-pregunta');
+    if (preguntaActual < preguntas.length) mostrarPregunta();
+}
+
+function confirmarNombre() {
+    nombreMascota = document.getElementById('nombre-mascota').value.trim();
+    if (!nombreMascota) nombreMascota = "Dragón Mágico";
     
+    // Si no eligió algo → asignar por defecto
+    if (!dragonElegido) dragonElegido = 'fuego';
+    if (!colorElegido) colorElegido = 'rosa';
+    if (!accesorioElegido) accesorioElegido = 'brillo';
+    
+    // Construir ruta de la imagen final
+    const clave = colorElegido + accesorioElegido.charAt(0).toUpperCase() + accesorioElegido.slice(1);
+    const rutaImagen = rutasImagenes[dragonElegido][clave];
+    
+    // Nombres para mostrar
     const nomDragon = dragonElegido === 'fuego' ? 'Dragón de Fuego 🔥' : 'Dragón de Hielo ❄️';
     const nomColor = colorElegido === 'rosa' ? '🩷 Rosa' : '🔵 Azul';
-    const nomAcc = acc === 'corona' ? '👑 Corona' : acc === 'capa' ? '🦸 Capa' : '🌟 Brillo';
+    const nomAcc = accesorioElegido === 'corona' ? '👑 Corona' : accesorioElegido === 'capa' ? '🦸 Capa' : '🌟 Brillo';
     
-    document.getElementById('mensaje-final').innerHTML = 
-        `${nomDragon} · ${nomColor} · ${nomAcc}`;
-    document.getElementById('mensaje-puntos').innerHTML = 
-        `🏆 Puntaje total: ${aciertos} de ${preguntas.length} (${Math.round((aciertos/preguntas.length)*100)}%)`;
+    // Mensaje según metas alcanzadas
+    let mensajeMetas = "";
+    if (metaAlcanzada.tipo && metaAlcanzada.color && metaAlcanzada.accesorio) {
+        mensajeMetas = "🎉 ¡Completaste todas las etapas! Tu magia brilla con fuerza.";
+    } else if (metaAlcanzada.tipo && metaAlcanzada.color) {
+        mensajeMetas = "✨ Muy bien, te faltó elegir el accesorio. ¡La próxima vez será!";
+    } else if (metaAlcanzada.tipo) {
+        mensajeMetas = "👍 Lograste elegir tu dragón. Sigue aprendiendo para completarlo todo.";
+    } else {
+        mensajeMetas = "💪 Sigue practicando. Tu dragón te espera para la próxima aventura.";
+    }
+    
+    // Mostrar todo
+    document.getElementById('mostrar-nombre').textContent = `✨ ${nombreMascota} ✨`;
+    document.getElementById('imagen-final').src = rutaImagen;
+    document.getElementById('mensaje-detalle').innerHTML = `${nomDragon} · ${nomColor} · ${nomAcc}<br>${mensajeMetas}`;
+    document.getElementById('puntaje-final').innerHTML = 
+        `🏆 Puntaje Final<br>✅ Respuestas correctas: ${aciertos}<br>❌ Respuestas incorrectas: ${fallos}<br>De ${preguntas.length} preguntas en total`;
     
     mostrarPantalla('pantalla-final');
 }
