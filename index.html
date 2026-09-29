@@ -572,6 +572,17 @@ function reiniciar() {
     mostrarPantalla('pantalla-inicio');
 }
 </script>
+<audio id="musicaFondo" loop>
+    <source src="kis.mp3" type="audio/mpeg">
 
+
+<script>
+const musica = document.getElementById('musicaFondo');
+const iniciarAntes = iniciarJuego;
+function iniciarJuego() {
+    musica.play();
+    iniciarAntes();
+}
+</script>
 </body>
 </html>
