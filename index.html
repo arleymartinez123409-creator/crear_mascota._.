@@ -179,6 +179,12 @@
 </head>
 <body>
 
+<!-- Música de fondo → SIN autoplay para que no bloquee nada -->
+<audio id="musicaFondo" loop>
+    <source src="kis.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+
+
 <div class="contenedor" id="pantalla-inicio">
     <h1>🐉 El Dragón de la Escuela Rural</h1>
     
@@ -272,11 +278,6 @@
     <button class="boton" onclick="reiniciar()">🔄 Vivir la aventura otra vez</button>
 </div>
 
-<!-- Música de fondo -->
-<audio id="musicaFondo" loop autoplay>
-    <source src="kis.mp3" type="audio/mpeg">
-
-
 <script>
 const preguntas = [
     { numero: 1, texto: "El director rural es:", opciones: { A: "Solo administrador", B: "Directivo docente que lidera en zona rural", C: "Solo docente" }, correcta: "B", explicacion: "Porque en las escuelas rurales el director no solo firma papeles, sino que también enseña y guía a la comunidad." },
@@ -310,8 +311,9 @@ function ocultarTodas() { document.querySelectorAll('.contenedor').forEach(c => 
 function mostrarPantalla(id) { ocultarTodas(); document.getElementById(id).classList.remove('oculto'); }
 
 function iniciarJuego() {
+    // Música al darle a Comenzar (nunca falla)
     const musica = document.getElementById('musicaFondo');
-    musica.play().catch(() => {});
+    musica.play().catch(err => console.log("Audio bloqueado por el navegador:", err));
     
     preguntaActual = 0;
     aciertos = 0;
